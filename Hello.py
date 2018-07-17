@@ -1,8 +1,13 @@
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("host", help="the host for browsing")
+args = parser.parse_args()
+
 port = 80
 
 import socket 
 
-ip = socket.gethostbyname('www.bbc.com')
+ip = socket.gethostbyname(args.host)
 print ip
 
 #for socket call (preparing to open the connection)
@@ -17,7 +22,7 @@ s.connect((ip, port))
 
 s.send('GET / HTTP/1.1\r\n')
 s.send('user-agent: Teddy\r\n')
-s.send('host: www.bbc.com\r\n')
+s.send('host: ' + args.host + '\r\n')
 s.send('Connection: close\r\n')
 s.send('Accept-Encoding: identity\r\n')
 s.send('\r\n')
